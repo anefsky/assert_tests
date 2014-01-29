@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+
+            #content {
+                /*position: absolute;*/
+            }
+            .point{
+                /*position: absolute;*/
+                width: 20px;
+                height: 20px;
+                border-radius: 10px;
+                background-color: blue;
+                position: absolute;
+                /*position: fixed;*/
+            }
+
+        </style>
+
+    </head>
+    <body>
+
+        <div id="content"></div>
+
+        <script type="text/javascript">
+
+            function getPoints() {
+                var num_points = 20;
+                var x;
+                var y;
+                var arrPoints = [];
+
+                for (var i = 0; i < num_points; i++) {
+                    x = i;
+                    y = Math.pow(i, 2);
+                    var point = {
+                        "x": x * 3,
+                        "y": y
+                    };
+                    arrPoints.push(point);
+                }
+                
+                var old_x = x;
+                var old_y = y;
+                
+                for(var j = 0; j < num_points; j++) {
+  //                  console.log("prior x = " + x);
+                    x++;
+ //                   console.log("j = " + j);
+ //                   console.log("x = " + x);
+                    console.log("old y = " + y);
+                    
+                    y = old_y - Math.pow(j, 2);
+                    
+                    console.log("new y = " + y);
+                    
+                    var point = {
+                        "x": x * 3,
+                        "y": y
+                    };
+                    arrPoints.push(point);
+                }
+                
+                return arrPoints;
+            }
+
+//            function drawPoint(x, y) {
+//                var elContent = document.getElementById("content");
+//                var elPoint = document.createElement("div");
+//                elPoint.style.top = y + "px";
+//                elPoint.style.left = x + "px";
+//                elPoint.className = "point";
+//                elContent.appendChild(elPoint);
+//            }
+
+            function drawPoints() {
+                var elContent = document.getElementById("content");
+                var elPoint = document.createElement("div");
+                elPoint.className = "point";
+                elPoint.style.top = 0;
+                elPoint.style.left = 0;
+                elContent.appendChild(elPoint);
+                
+                var points = getPoints();
+                console.log("number of points = " + points.length);
+                for(var i = 0; i < points.length; i++) {
+ //                   console.log(i + " " + points[i].x + " " + points[i].y)
+                }
+                
+                var tick = 0;                                               //#3
+
+                var timer = setInterval(function() {                         //#4
+                    if (tick < points.length) {
+  //                      elem.style.left = elem.style.top = tick + "px";
+                        var point = points[tick];
+                        elPoint.style.top = point.y + "px";
+                        elPoint.style.left = point.x + "px";
+                        tick++;
+                    }
+                    else {
+                        clearInterval(timer);
+                    }
+                }, 30);
+//
+            }
+
+            drawPoints();
+
+        </script>
+    </body>
+</html>
+
